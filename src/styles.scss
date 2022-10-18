@@ -117,7 +117,56 @@
 					}
 				}
 			}
+
+			.search {
+				border-bottom: 1px solid #232453;
+
+				.search-form {
+					display: flex;
+					align-items: center;
+					input {
+						background-color: transparent;
+						border: none;
+						color: white;
+						outline: none;
+						border-bottom: 1px solid #232453;
+						// padding-bottom: 10px;
+						// padding-top: 10px;
+						padding: 10px 0 10px 10px;
+					}
+				}
+			}
+
+			.user-chat {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 10px;
+				color: #fff;
+				cursor: pointer;
+
+				&:hover {
+					background-color: #232453;
+				}
+				img {
+					width: 30px;
+					height: 30px;
+					border-radius: 50%;
+				}
+
+				.user-chat-info {
+					span {
+						font-size: 18px;
+						font-weight: 700;
+					}
+					p {
+						font-size: 14px;
+						font-weight: 300;
+					}
+				}
+			}
 		}
+
 		.chat {
 			flex: 2;
 		}
