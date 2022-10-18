@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-family: "Roboto", sans-serif;
 }
 
 .form-container {
@@ -14,7 +15,7 @@
 	background: linear-gradient(to top, #8e54e9, #4776e6);
 
 	.form-wrapper {
-		background-color: #fff;
+		background-color: #2f3061;
 		padding: 25px;
 		text-align: center;
 		border-radius: 10px;
@@ -28,7 +29,7 @@
 		span {
 			color: #4776e6;
 			font-size: 20px;
-			font-weight: bold;
+			font-weight: 700;
 			margin-bottom: 20px;
 		}
 		form {
@@ -56,7 +57,6 @@
 				img {
 					width: 50px;
 					height: 50px;
-					color: #4776e6;
 					cursor: pointer;
 				}
 			}
@@ -64,6 +64,62 @@
 		p {
 			font-size: 14px;
 			color: #4776e6;
+		}
+	}
+}
+
+.home {
+	background: #4776e6;
+	background: -webkit-linear-gradient(to top, #8e54e9, #4776e6);
+	background: linear-gradient(to top, #8e54e9, #4776e6);
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.container {
+		border: 1px solid red;
+		border-radius: 10px;
+		width: 65%;
+		height: 85%;
+		display: flex;
+
+		.sidebar {
+			flex: 1;
+			background-color: #2f3061;
+			border-top-left-radius: 10px;
+			border-bottom-left-radius: 10px;
+			overflow: hidden;
+
+			.navbar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				background-color: #232453;
+				height: 50px;
+				padding: 10px;
+				color: #fff;
+
+				.user {
+					display: flex;
+					align-items: center;
+					gap: 10px;
+					img {
+						width: 30px;
+					}
+					button {
+						color: #fff;
+						padding: 5px;
+						border: 1px solid #4776e6;
+						background-color: #4776e6;
+						border-radius: 10px;
+						cursor: pointer;
+					}
+				}
+			}
+		}
+		.chat {
+			flex: 2;
 		}
 	}
 }
