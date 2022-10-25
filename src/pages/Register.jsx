@@ -1,11 +1,11 @@
 import React from "react"
 import avatar from "../img/avatar.png"
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
-import { auth, getStorage, db, storage } from "../firebase"
+import { auth, db, storage } from "../firebase"
 import { useState } from "react"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { doc, setDoc } from "firebase/firestore"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
 export const Register = () => {
 	const [err, setErr] = useState(false)
@@ -74,7 +74,9 @@ export const Register = () => {
 					<button>Registrarse</button>
 					{err && <span>Algo salio mal</span>}
 				</form>
-				<p>Ya tenes cuenta? Ingresar</p>
+				<p>
+					Ya tenes cuenta? <Link to="/login">Ingresá</Link>
+				</p>
 			</div>
 		</div>
 	)
