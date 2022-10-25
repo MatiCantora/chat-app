@@ -1,12 +1,15 @@
 import React from "react"
 import avatar from "../img/avatar.png"
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { auth, getStorage } from "../firebase"
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { auth, getStorage, db, storage } from "../firebase"
 import { useState } from "react"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { doc, setDoc } from "firebase/firestore"
+import { useNavigate } from "react-router-dom"
 
 export const Register = () => {
 	const [err, setErr] = useState(false)
+	const navigate = useNavigate()
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 		const name = e.target[0].value
@@ -15,31 +18,37 @@ export const Register = () => {
 		const pass2 = e.target[3].value
 		const file = e.target[4].files[0]
 
+		let password
+		if (pass1 === pass2) {
+			password = pass1
+		} else setErr(true)
+
 		try {
+			const res = await createUserWithEmailAndPassword(auth, email, password)
+
 			const storageRef = ref(storage, name)
 
 			const uploadTask = uploadBytesResumable(storageRef, file)
 
 			uploadTask.on(
-				"state_changed",
-				(snapshot) => {
-					const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-					console.log("Upload is " + progress + "% done")
-					switch (snapshot.state) {
-						case "paused":
-							console.log("Upload is paused")
-							break
-						case "running":
-							console.log("Upload is running")
-							break
-					}
+				(error) => {
+					setErr(true)
 				},
-				(error) => {},
 				() => {
-					// Handle successful uploads on complete
-					// For instance, get the download URL: https://firebasestorage.googleapis.com/...
-					getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-						console.log("File available at", downloadURL)
+					getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+						await updateProfile(res.user, {
+							name,
+							file: downloadURL,
+						})
+						await setDoc(doc(db, "users", res.user.uid), {
+							uid: res.user.uid,
+							name,
+							email,
+							file: downloadURL,
+						})
+
+						await setDoc(doc(db, "userChats", res.user.uid), {})
+						navigate("/")
 					})
 				}
 			)
